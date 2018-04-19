@@ -1,0 +1,14 @@
+<h1>Cafe Jolt</h1>
+
+<% @menu.each do |item| %>
+  <p><%= item["name"] %></p>
+  <p><%= item["description"] %></p>
+  <p><%= item["stock_level"] %> left</p>
+
+    
+  <%= form_for :orders, url: orders_path do |f| %>
+    <%= f.submit "Create" %>
+  <% end %>
+
+  <br />
+<% end %>
