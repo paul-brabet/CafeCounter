@@ -10,5 +10,15 @@
     <%= f.submit "Create" %>
   <% end %>
 
+  <%= form_with scope: :orders, url: orders_path, local: true do |form| %>
+    <p>
+      <%= form.label :number %>
+      <%= form.text_field :number %>
+    </p>
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>
+
   <br />
 <% end %>

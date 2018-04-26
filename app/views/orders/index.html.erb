@@ -1,0 +1,23 @@
+<h1 class="title">Cafe Jolt</h1>
+
+<%= form_with scope: :orders, url: orders_path, local: true do |form| %>
+
+  <% @menu.each do |item| %>
+  
+    <p><%= item["name"] %></p>
+    <p><%= item["description"] %></p>
+    <p><%= item["stock_level"] %> left</p>
+
+    <p>
+      <%= form.label "Number of " + item['name'] %>
+      <%= form.hidden_field "Href for " + item['name'], :value => item["id"] %>
+      <%= form.text_field "Number of " + item['name'] %>
+    </p>
+
+    <br />
+  
+  <% end %>
+
+  <%= form.submit %>
+
+<% end %>
