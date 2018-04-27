@@ -4,32 +4,6 @@ class OrdersController < ApplicationController
     order_list = remove_redundant_properties(data)
     options = format_for_post_payload(order_list, order_id)
     return options
-
-    # components = []
-    # order_list.each {|key, value|
-    #   if key.match?("Href for ")
-    #     meal = key.delete_prefix("Href for ")
-    #     if order_list["Number of " + meal]
-    #       components.push({
-    #         "href" => value,
-    #         "quantity" => order_list["Number of " + meal].to_i
-    #       })
-    #     end 
-    #   end
-    # }
-  
-    # body = {
-    #   "kind": "job",
-    #   "idempotency_key": @orders.id.to_s,
-    #   "components": components
-    # }
-  
-    # options = {
-    #   headers: {'Content-Type'=>'application/json'},
-    #   body: body.to_json
-    # }
-  
-    # return options
   end
 
   def remove_redundant_properties(data)
@@ -46,6 +20,7 @@ class OrdersController < ApplicationController
 
   def format_for_post_payload(order_list, order_id)
     components = []
+    # Change key names and put orders with their matching href in a their own hash, inside of the components array
     order_list.each {|key, value|
       if key.match?("Href for ")
         meal = key.delete_prefix("Href for ")
@@ -68,7 +43,6 @@ class OrdersController < ApplicationController
       headers: {'Content-Type'=>'application/json'},
       body: body.to_json
     }
-  
     return options
   end
   
@@ -82,6 +56,7 @@ class OrdersController < ApplicationController
     @orders = Order.new()
     @orders.status = "Order sent to kitchen"
     @orders.save
+    binding.pry
 
     # Shapes order data for post request
     options = shape(params["orders"], @orders.id.to_s)
