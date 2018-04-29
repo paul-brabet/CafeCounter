@@ -47,8 +47,8 @@ class OrdersController < ApplicationController
   end
   
   def index
-    @@hey_kitchen = CallKitchen.new
-    @menu = @@hey_kitchen.see_menu.parsed_response["menu_items"]
+    get_menu = Get_menu.new
+    @menu = get_menu.get_request.parsed_response["menu_items"]
   end
 
   def create
@@ -56,13 +56,13 @@ class OrdersController < ApplicationController
     @orders = Order.new()
     @orders.status = "Order sent to kitchen"
     @orders.save
-    binding.pry
 
     # Shapes order data for post request
     options = shape(params["orders"], @orders.id.to_s)
 
     # Posts order to kitchen
-    @result = @@hey_kitchen.submit_order(options)
+    submit_order = Submit_order.new
+    @result = submit_order.post(options)
     
     # Handle post response
     if @result.code == 200 
@@ -70,26 +70,6 @@ class OrdersController < ApplicationController
     else 
       render({:plain => "Uh-oh. Something went wrong! Order was not completed. Check if there is enough supply to make the order"})
     end
-  end
-
-end
-
-class CallKitchen
-  include HTTParty
-  base_uri "http://localhost:5000/"
-
-  def initialize
-  end
-  
-  def see_menu
-    @options = {query: {
-      "page[size]" => 20
-    }}
-    self.class.get("/menu_items", @options)
-  end
-
-  def submit_order(options)
-    self.class.post('/jobs', options)
   end
 
 end
