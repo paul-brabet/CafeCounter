@@ -1,4 +1,4 @@
-class OrdersController < ApplicationController
+class MoreItemsController < ApplicationController
   
   def shape(data, order_id)
     order_list = remove_redundant_properties(data)
@@ -48,7 +48,7 @@ class OrdersController < ApplicationController
   
   def index
     get_menu = Get_menu.new
-    @menu = get_menu.get_request
+    @menu = get_menu.get_next_page(params["next_url"])
   end
 
   def create
@@ -73,3 +73,5 @@ class OrdersController < ApplicationController
   end
 
 end
+
+

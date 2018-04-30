@@ -5,10 +5,15 @@ class Get_menu
 
   def get_request
     options = {query: {
-      "page[size]" => 20
+      "page[size]" => 10
     }}
 
-    self.class.get("/menu_items", options)
+    @response = self.class.get("/menu_items", options)
+    @response = @response.parsed_response
+  end
+
+  def get_next_page(href)
+    self.class.get(href)
   end
 
 end

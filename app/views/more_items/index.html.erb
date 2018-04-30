@@ -17,8 +17,14 @@
     <br />
   
   <% end %>
-  
-  <%= link_to "Next", more_items_url(:next_url => @menu.dig("_links", "next", "href")) %>
+
+  <%= unless @menu.dig("_links", "prev").nil?
+    link_to "Previous", more_items_url(:next_url => @menu.dig("_links", "prev", "href")) 
+  end %>
+  <%= unless @menu.dig("_links", "next").nil?
+    link_to "Next", more_items_url(:next_url => @menu.dig("_links", "next", "href")) 
+  end %>
+
   <%= form.submit %>
 
 <% end %>
