@@ -1,5 +1,5 @@
 <h1 class="title">Cafe Jolt</h1>
-
+<% session[:cart] = [] %>
 <%= form_with scope: :orders, url: orders_path, local: true do |form| %>
 
   <% @menu["menu_items"].each do |item| %>
@@ -12,14 +12,21 @@
       <%= form.label "Number of " + item['name'] %>
       <%= form.hidden_field "Href for " + item['name'], :value => item["id"] %>
       <%= form.text_field "Number of " + item['name'] %>
+
+      <%# <% session[:cart] = item["id"] %>
+
+      <%= button_to "Add 1", {:action => "create", :item_id => item["id"] }, :method => :post %>
     </p>
+
+    
 
     <br />
   
   <% end %>
-  
+
   <%= link_to "Next", more_items_url(:next_url => @menu.dig("_links", "next", "href")) %>
   <%= form.submit %>
 
 <% end %>
+
 

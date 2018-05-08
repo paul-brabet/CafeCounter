@@ -12,6 +12,7 @@
       <%= form.label "Number of " + item['name'] %>
       <%= form.hidden_field "Href for " + item['name'], :value => item["id"] %>
       <%= form.text_field "Number of " + item['name'] %>
+      <%= button_to "Add 1", {:controller => "orders", :action => "create", :item_id => item["id"] }, :method => :post %>      
     </p>
 
     <br />
