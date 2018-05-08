@@ -1,32 +1,18 @@
 <h1 class="title">Cafe Jolt</h1>
 
-<%= form_with scope: :orders, url: orders_path, local: true do |form| %>
-
-  <% @menu["menu_items"].each do |item| %>
+<% @menu["menu_items"].each do |item| %>
   
-    <p><%= item["name"] %></p>
-    <p><%= item["description"] %></p>
-    <p><%= item["stock_level"] %> left</p>
-
-    <p>
-      <%= form.label "Number of " + item['name'] %>
-      <%= form.hidden_field "Href for " + item['name'], :value => item["id"] %>
-      <%= form.text_field "Number of " + item['name'] %>
-      <%= button_to "Add 1", {:controller => "orders", :action => "create", :item_id => item["id"] }, :method => :post %>      
-    </p>
-
-    <br />
-  
-  <% end %>
-
-  <%= unless @menu.dig("_links", "prev").nil?
-    link_to "Previous", more_items_url(:next_url => @menu.dig("_links", "prev", "href")) 
-  end %>
-  <%= unless @menu.dig("_links", "next").nil?
-    link_to "Next", more_items_url(:next_url => @menu.dig("_links", "next", "href")) 
-  end %>
-
-  <%= form.submit %>
+  <p><%= item["name"] %></p>
+  <p><%= item["description"] %></p>
+  <p><%= item["stock_level"] %> left</p>
+  <%= button_to "Add 1", {:controller => "orders", :action => "create", :item_id => item["id"] }, :method => :post %>      
+  <br />
 
 <% end %>
 
+<%= unless @menu.dig("_links", "prev").nil?
+  link_to "Previous", more_items_url(:next_url => @menu.dig("_links", "prev", "href")) 
+end %>
+<%= unless @menu.dig("_links", "next").nil?
+  link_to "Next", more_items_url(:next_url => @menu.dig("_links", "next", "href")) 
+end %>
