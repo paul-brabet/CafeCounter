@@ -1,0 +1,19 @@
+<h1 class="title">Cart</h1>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Menu item</th>
+      <th>Number to be ordered</th>
+    </tr>
+  </thead>
+  <tbody>  
+    <% @cart.each do |item| %>
+      <tr>
+        <th><%= item["name"] %></th> 
+        <th><%= item["number"] %></th> 
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -13,3 +13,4 @@
 <% end %>
 
 <%= link_to "Next", more_items_url(:next_url => @menu.dig("_links", "next", "href")) %>
+<%= link_to "Confirm orders", :controller => "cart" %>

@@ -5,7 +5,8 @@
   <p><%= item["name"] %></p>
   <p><%= item["description"] %></p>
   <p><%= item["stock_level"] %> left</p>
-  <%= button_to "Add 1", {:controller => "orders", :action => "create", :item_id => item["id"] }, :method => :post %>      
+  <%= button_to "Add 1 to order list", {:controller => "orders", :action => "create", :item_id => item["id"] }, :method => :post %>
+  
   <br />
 
 <% end %>
@@ -16,3 +17,5 @@ end %>
 <%= unless @menu.dig("_links", "next").nil?
   link_to "Next", more_items_url(:next_url => @menu.dig("_links", "next", "href")) 
 end %>
+
+<%= link_to "Confirm orders", :controller => "cart" %>
