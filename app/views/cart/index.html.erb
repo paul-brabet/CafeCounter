@@ -18,5 +18,10 @@
   </tbody>
 </table>
 
-<%= button_to "Confirm order", {:action => "create"}, :method => :post, class: "button" %>
+<% if @cart == [] %>
+  <p>Your cart is empty!</p>
+  <%= link_to "Return to menu", :controller => "orders"%>
+<% else %>
+  <%= button_to "Confirm order", {:action => "create"}, :method => :post, class: "button" %>
+<% end %>
 
