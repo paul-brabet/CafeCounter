@@ -10,13 +10,24 @@ class CartController < ApplicationController
     @cart = build_cart.build(session[:cart])
 
     # Saves order to database
-    @orders = Order.new()
-    @orders.status = "Order sent to kitchen"
-    @orders.save
+    @order = Order.new()
+    @order.status = "Order sent to kitchen"
+    @order.save
+
+    # Saves order items to database
+    @cart.each do |order_item|
+      @order_item = @order.order_items.build
+      # @order_item = OrderItem.new()
+      @order_item.kitchen_id = order_item["id"]
+      @order_item.name = order_item["name"]
+      @order_item.number = order_item["number"]
+      # @order_item.order = @orders.id
+      @order_item.save
+    end
 
     # Shapes order data for post request
     shape_data = Shape_data.new
-    options = shape_data.shape(@cart, @orders.id)
+    options = shape_data.shape(@cart, @order.id)
 
     # Posts order to kitchen
     submit_order = Submit_order.new
