@@ -12,6 +12,16 @@ class CartController < ApplicationController
     # Creates new order for db
     @order = Order.new()
     @order.status = "Order sent to kitchen"
+    @order.save
+
+    # Saves order items to database
+    @cart.each do |order_item|
+      @order_item = @order.order_items.build
+      @order_item.kitchen_id = order_item["id"]
+      @order_item.name = order_item["name"]
+      @order_item.number = order_item["number"]
+      @order_item.save
+    end
 
     # Shapes order data for post request
     shape_data = Shape_data.new
@@ -23,15 +33,6 @@ class CartController < ApplicationController
     
     # Handle post response
     if @result.code == 200 
-      @order.save
-      # Saves order items to database
-      @cart.each do |order_item|
-        @order_item = @order.order_items.build
-        @order_item.kitchen_id = order_item["id"]
-        @order_item.name = order_item["name"]
-        @order_item.number = order_item["number"]
-        @order_item.save
-      end
       render({:plain => "Order successfully made to the kitchen"})
     elsif
       @result.code == 422
