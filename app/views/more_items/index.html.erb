@@ -11,11 +11,16 @@
 
 <% end %>
 
-<%= unless @menu.dig("_links", "prev").nil?
-  link_to "Previous", more_items_url(:next_url => @menu.dig("_links", "prev", "href")) 
-end %>
-<%= unless @menu.dig("_links", "next").nil?
-  link_to "Next", more_items_url(:next_url => @menu.dig("_links", "next", "href")) 
-end %>
+<%= link_to_unless(
+  @menu.dig("_links", "prev").nil?, 
+  "Previous", 
+  more_items_url(:next_url => @menu.dig("_links", "prev", "href")) 
+) %>
+
+<%= link_to_unless(
+  @menu.dig("_links", "next").nil?,
+  "Next",
+  more_items_url(:next_url => @menu.dig("_links", "next", "href"))
+)%>
 
 <%= link_to "Confirm orders", :controller => "cart" %>
