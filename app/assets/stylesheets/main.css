@@ -1,0 +1,11 @@
+/* .next-prev-links {
+  display: flex;
+  justify-content: space-between
+} */
+
+.text-centered {
+  text-align: center
+}
+.max-width-600 {
+  max-width: 600px
+}

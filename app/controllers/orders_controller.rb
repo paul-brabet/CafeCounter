@@ -6,7 +6,6 @@ class OrdersController < ApplicationController
   end
 
   def create
-
     existing_item = session[:cart].select { |item| item["id"] == params[:item_id] }
     if existing_item != []
       existing_item[0]["number"] += 1

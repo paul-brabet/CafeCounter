@@ -12,5 +12,25 @@
 
 <% end %>
 
-<%= link_to "Next", more_items_url(:next_url => @menu.dig("_links", "next", "href")) %>
-<%= link_to "Confirm orders", :controller => "cart" %>
+<div class="columns text-centered" >
+  <div class="column">
+    <%= link_to_unless(
+      @menu.dig("_links", "prev").nil?, 
+      "Previous", 
+      more_items_url(:next_url => @menu.dig("_links", "prev", "href")) 
+    ) %>
+  </div>
+  <div class="column">
+    <%= link_to_unless(
+      @menu.dig("_links", "next").nil?,
+      "Next",
+      more_items_url(:next_url => @menu.dig("_links", "next", "href")),
+    )%>
+  </div>
+</div>
+
+<div class="columns is-centered text-centered">
+  <div class="column is-half is-narrow">
+    <%= link_to "Confirm orders", :controller => "cart" %>
+  </div>
+</div>
