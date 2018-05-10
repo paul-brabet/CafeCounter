@@ -17,11 +17,9 @@ class CartController < ApplicationController
     # Saves order items to database
     @cart.each do |order_item|
       @order_item = @order.order_items.build
-      # @order_item = OrderItem.new()
       @order_item.kitchen_id = order_item["id"]
       @order_item.name = order_item["name"]
       @order_item.number = order_item["number"]
-      # @order_item.order = @orders.id
       @order_item.save
     end
 
